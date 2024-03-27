@@ -24,7 +24,9 @@ public class CustomerController {
     @GetMapping()
     public ResponseEntity<List<CustomerDto>> findAllCustomer(){
         List<CustomerDto> customers=customerService.findAllCustomers();
+        log.info("successful");
         return new ResponseEntity<>(customers, HttpStatus.OK);
+
     }
 
     @PostMapping
