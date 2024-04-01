@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'gradle'
 
       - name: Build with Gradle
         run: gradle build -x test bootJar
@@ -26,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-jar
-          path: build/libs/*.jar
+          path: build/libs/
 
   test:
     name: Test
@@ -40,6 +41,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'gradle'
 
       - name: Run tests with Gradle
         run: gradle test
