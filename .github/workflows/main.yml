@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'gradle'
+          distribution: adopt
 
       - name: Build with Gradle
         run: gradle build -x test bootJar
@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'gradle'
+          distribution: adopt
 
       - name: Run tests with Gradle
         run: gradle test
