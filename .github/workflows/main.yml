@@ -1,23 +1,33 @@
-name: Java CI with Gradle
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main  # Izmenit' vetku v zavisimosti ot vashego osnovnogo brancha
   pull_request:
-    branches: [ main ]
+    branches:
+      - main  # Izmenit' vetku v zavisimosti ot vashego osnovnogo brancha
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
-      - name: Test with Gradle
-        run: ./gradlew test # Пример команды для запуска модульных тестов
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Dobavit' shagi dlya sborki proyekta zdes'
+      # Primer: Ustanovka zavisimostey, sborka, zapusk testov, itd.
+
+      # Primer shaga dlya sborki s pomoshch'yu Node.js
+      - name: Install dependencies
+        run: npm install
+
+      # Primer shaga dlya zapuska testov
+      - name: Run tests
+        run: npm test
+
+      # Primer shaga dlya vozmozhnosti vypolneniya skriptov komandnoy stroke
+      - name: Execute custom script
+        run: |
+          echo "Custom script executed"
