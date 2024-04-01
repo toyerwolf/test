@@ -1,34 +1,71 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: '11'
 
-
-      - name: Setup Gradle
-        uses: gradle/wrapper-action@v2
-
-
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+        run: gradle build -x test bootJar
+        working-directory: ./
 
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-jar
+          path: build/libs/*.jar
 
-      - name: Run tests
-        run: ./gradlew test --no-daemon
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Run tests with Gradle
+        run: gradle test
+        working-directory: ./
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Pull build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: app-jar
+          path: build/libs/
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t customer-ms:latest .
+          docker push customer-ms:latest .
