@@ -20,7 +20,7 @@ jobs:
           distribution: adopt
 
       - name: Build with Gradle
-        run: gradle build -x test bootJar
+        run: gradle build -x test :bootJar
         working-directory: ./
 
       - name: Archive build artifacts
