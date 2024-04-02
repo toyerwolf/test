@@ -43,12 +43,9 @@ jobs:
           java-version: '11'
           distribution: adopt
 
-      - name: Set up working directory
-        run: cd customer-ms
-        working-directory: ./customer-ms
-
       - name: Run tests with Gradle
-        run: ./gradle test
+        run: gradle init :test
+        working-directory: ./
 
   deploy:
     name: Deploy
