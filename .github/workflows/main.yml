@@ -37,17 +37,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK and Gradle
-        uses: actions/setup-java@v1
+      - name: Set up JDK
+        uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'adopt'
-          gradle-version: '9.0.0'  # Укажите версию Gradle, которую вы хотите использовать
+          distribution: adopt
+
+      - name: Set up working directory
+        run: cd customer-ms
+        working-directory: ./customer-ms
 
       - name: Run tests with Gradle
-        run: |
-          ./gradlew test
-        working-directory: ./
+        run: ./gradle test
 
   deploy:
     name: Deploy
