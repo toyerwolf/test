@@ -5,15 +5,26 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:8085"
     depends_on:
       - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.199.34.173:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: AAaa123456,./
+    networks:
+      - your-network
   db:
     image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: AAaa123456,./
-      POSTGRES_DB: ATL
+      POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    networks:
+      - your-network
 
+networks:
+  your-network:
+    driver: bridge
