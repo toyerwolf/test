@@ -47,7 +47,7 @@ jobs:
         run: gradle init
 
       - name: Run tests with Gradle
-        run: gradlew build test
+        run: gradle test --tests
         working-directory: ./
 
   deploy:
