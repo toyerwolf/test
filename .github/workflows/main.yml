@@ -20,7 +20,7 @@ jobs:
           distribution: adopt
 
       - name: Build with Gradle
-        run: ./gradle init --type java-application
+        run: gradle init --type java-application
         working-directory: ./
 
       - name: Archive build artifacts
@@ -44,7 +44,7 @@ jobs:
           distribution: adopt
 
       - name: Run tests with Gradle
-        run: ./gradle build init test
+        run: gradle build init :test
         working-directory: ./
 
   deploy:
