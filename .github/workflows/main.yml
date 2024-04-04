@@ -44,7 +44,7 @@ jobs:
           distribution: adopt
 
       - name: Run tests with Gradle
-        run: gradle build test
+        run: gradle build init test
         working-directory: ./
 
   deploy:
