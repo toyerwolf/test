@@ -47,7 +47,7 @@ jobs:
 
       - name: Run tests with Gradle
         run: gradle build :test
-        working-directory: ./
+        working-directory: ./customer-ms
 
   deploy:
     name: Deploy
