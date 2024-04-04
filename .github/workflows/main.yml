@@ -17,9 +17,12 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: adopt
 
-      - name: Build
+      - name: Build with Gradle
         run: gradle build -x test bootJar
+        working-directory: ./
+
       - name: Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -38,9 +41,14 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: adopt
 
-      - name: Run tests
-        run: gradle test
+      - name: Initialize Gradle build
+        run: gradle init
+
+      - name: Run tests with Gradle
+        run: gradle test --tests
+        working-directory: ./
 
   deploy:
     name: Deploy
@@ -64,5 +72,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t  .
-          docker push iazizov/spring-boot-tutorial:latest
+          docker build -t customer-ms:latest .
+          docker push customer-ms:latest .
