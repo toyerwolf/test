@@ -19,16 +19,15 @@ jobs:
           java-version: '11'
           distribution: adopt
 
-      - name: Build with Gradle
-        run: gradle init --type java-application
-        working-directory: ./
+      - name: Build customer-ms with Gradle
+        run: gradle build -p customer-ms
+        working-directory: ./customer-ms
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: app-jar
-          path: build/libs/
-
+          path: customer-ms/build/libs/*.jar
   test:
     name: Test
     runs-on: ubuntu-latest
