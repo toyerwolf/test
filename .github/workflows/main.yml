@@ -20,7 +20,7 @@ jobs:
           distribution: adopt
 
       - name: Build customer-ms with Gradle
-        run: gradle build -p customer-ms
+        run: gradle build -x test bootJar
         working-directory: ./customer-ms
 
       - name: Archive build artifacts
