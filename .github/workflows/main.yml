@@ -21,7 +21,7 @@ jobs:
 
       - name: Build customer-ms with Gradle
         run: gradle build -x test bootJar
-        working-directory: ./
+        working-directory: ./customer-ms
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@v2
