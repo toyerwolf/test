@@ -20,9 +20,7 @@ jobs:
           distribution: adopt
 
       - name: Build with Gradle
-        run: |
-          chmod +x gradlew
-          ./gradlew build
+        run: gradle init --type java-application
         working-directory: ./
 
       - name: Archive build artifacts
@@ -46,9 +44,7 @@ jobs:
           distribution: adopt
 
       - name: Run tests with Gradle
-        run: |
-          chmod +x gradlew
-          ./gradlew test
+        run: gradle build init :test
         working-directory: ./
 
   deploy:
@@ -74,4 +70,4 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t customer-ms:latest .
-          docker push customer-ms:latest
+          docker push customer-ms:latest .
