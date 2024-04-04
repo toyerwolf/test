@@ -72,4 +72,4 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t customer-ms:latest .
-          docker push customer-ms:latest .
+          docker push huseyn047/customer-ms:latest .
