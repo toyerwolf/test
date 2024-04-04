@@ -43,8 +43,11 @@ jobs:
           java-version: '11'
           distribution: adopt
 
+      - name: Initialize Gradle build
+        run: gradle init
+
       - name: Run tests with Gradle
-        run: gradle build init :test
+        run: gradle test
         working-directory: ./
 
   deploy:
